@@ -17,7 +17,7 @@ Only the sharpest minds will reach the hidden flag.
 2. Enter the correct 8-bit binary string.
 3. Bypass the fake logic and hidden payloads.
 4. Unlock the final flag:  
-   `CTF{../ .-..-- .../ ../- . / .. and.. / -- .. ... ... / -.-- --- ..-}`
+   `CTF(-.-. - ..-. -.-.--.- .. ..--.- .-.. --- ...- . ..--.- -.-- --- ..- ..--.- .- -. -.. ..--.- -- .. ... ... ..--.- -.-- --- ..- -.--.-.-)`
 
 ## 💻 Tech Stack
 - HTML, CSS, JavaScript (vanilla)
