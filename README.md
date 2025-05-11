@@ -1,4 +1,4 @@
-# 🧠 Maxslay - Hardcore CTF Challenge
+# 🧠 Maxslay - CTF Challenge
 
 Welcome to **Maxslay**, a brutal CTF built with HTML, CSS, and JavaScript.  
 Only the sharpest minds will reach the hidden flag.
