@@ -12,7 +12,7 @@ Only the sharpest minds will reach the hidden flag.
 
 ## 🚀 How to Play
 1. Open the challenge in your browser:
-    [https://Maxslay.github.io/Maxslay/]([https://Maxslay.github.io/Maxslay/](https://github.com/Maxslay/Maxslay.git))
+    [https://Maxslay.github.io/Maxslay/](https://github.com/Maxslay/Maxslay.git)
 
 2. Enter the correct 8-bit binary string.
 3. Bypass the fake logic and hidden payloads.
