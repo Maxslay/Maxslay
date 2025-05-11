@@ -1,51 +1,33 @@
-(function() {
-  const output = document.getElementById("output");
-  const finalKey = "01011010";
-  const xorKey = 42;
-  const partBEnc = [35, 70, 70, 116, 105, 71, 79, 67, 77]; // XOR encrypted 'love_you'
-  const netResponse = "YW5kX0lfbWlzc195b3U="; // and_I_miss_you
+const secretInput = [0, 1, 1, 0, 1, 0, 0, 1]; // jawapan sebenar
+const finalMessage = "Q1RGe0lfbG92ZV95b3VfYW5kX0lfbWlzc195b3V9"; // base64 encoded
 
-  const detectDebug = () => {
-    if (window.outerHeight - window.innerHeight > 200) {
-      output.textContent = "⚠️ DevTools detected. Challenge paused.";
-      throw new Error("No cheating!");
-    }
-  }
-
-  const fakeFetch = () => new Promise(resolve => {
-    setTimeout(() => {
-      resolve(atob(netResponse));
-    }, 1000);
+function complexLogic(bits) {
+  const l1 = bits.map((b, i) => b ^ ((i % 2 === 0) ? 1 : 0)).map(b => b ^ 1);
+  const l2 = l1.map((b, i) => {
+    const a = secretInput[i];
+    return ~(a & b) & 1;
   });
+  const l3 = l2.map((b, i) => b ^ l2[7 - i]);
+  return l3;
+}
 
-  function validateLogic(bits) {
-    const secret = finalKey.split('').map(Number);
-    const xor = bits.map((b, i) => b ^ bits[7 - i]);
-    return xor.every((v, i) => v === secret[i]);
+function startCTF() {
+  const input = document.getElementById("binaryInput").value.trim();
+  const output = document.getElementById("output");
+
+  if (!/^[01]{8}$/.test(input)) {
+    output.textContent = "❌ Input mesti tepat 8 digit binary (0 dan 1 sahaja). Contoh: 11001010";
+    return;
   }
 
-  function decryptXOR(arr) {
-    return arr.map(c => String.fromCharCode(c ^ xorKey)).join('');
+  const inputBits = input.split("").map(Number);
+  const processed = complexLogic(inputBits);
+  const isMatch = processed.every((v, i) => v === secretInput[i]);
+
+  if (isMatch) {
+    const decoded = atob(finalMessage);
+    output.textContent = "✅ FLAG:\nCTF{" + decoded.split("{")[1];
+  } else {
+    output.textContent = "🚫 Logic gate mismatch.";
   }
-
-  window.startCTF = async function () {
-    detectDebug();
-
-    const input = document.getElementById("binaryInput").value.trim();
-    if (!/^[01]{8}$/.test(input)) {
-      output.textContent = "❌ Invalid binary input.";
-      return;
-    }
-
-    const bits = input.split("").map(Number);
-    if (!validateLogic(bits)) {
-      output.textContent = "🚫 Logic gate mismatch.";
-      return;
-    }
-
-    const partB = decryptXOR(partBEnc); // love_you
-    const partC = await fakeFetch();    // and_I_miss_you
-
-    output.textContent = `🎉 FLAG:\nCTF{I_${partB}_${partC}}`;
-  }
-})();
+}
